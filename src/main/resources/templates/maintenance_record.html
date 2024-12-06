@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrar Film</title>
+</head>
+<body>
+<h1>Registrar Film</h1>
+<form th:action="@{/maintenance/record}" th:object="${filmRecordDto}" method="post">
+    <!-- Campo oculto para el ID (puede ser null para nuevos registros) -->
+    <input type="hidden" th:field="*{filmId}"/>
+
+    <!-- Campos del formulario -->
+    <label for="title">Título:</label>
+    <input type="text" id="title" th:field="*{title}" required/><br/>
+
+    <label for="description">Descripción:</label>
+    <textarea id="description" th:field="*{description}" required></textarea><br/>
+
+    <label for="releaseYear">Año de Lanzamiento:</label>
+    <input type="number" id="releaseYear" th:field="*{releaseYear}"/><br/>
+
+    <label for="languageId">Idioma:</label>
+    <select id="languageId" th:field="*{languageId}">
+        <option value="" disabled selected>Seleccione un idioma</option>
+        <!-- Cambiar 'language.id' por 'language.languageId' -->
+        <option th:each="language : ${languages}"
+                th:value="${language.languageId}"  <!-- Aquí está el cambio -->
+        th:text="${language.name}"></option>
+    </select><br/>
+
+    <label for="rentalDuration">Duración de Alquiler:</label>
+    <input type="number" id="rentalDuration" th:field="*{rentalDuration}"/><br/>
+
+    <label for="rentalRate">Tarifa de Alquiler:</label>
+    <input type="number" step="0.01" id="rentalRate" th:field="*{rentalRate}"/><br/>
+
+    <label for="length">Duración (min):</label>
+    <input type="number" id="length" th:field="*{length}"/><br/>
+
+    <label for="replacementCost">Costo de Reemplazo:</label>
+    <input type="number" step="0.01" id="replacementCost" th:field="*{replacementCost}"/><br/>
+
+    <label for="rating">Clasificación:</label>
+    <input type="text" id="rating" th:field="*{rating}"/><br/>
+
+    <label for="specialFeatures">Características Especiales:</label>
+    <input type="text" id="specialFeatures" th:field="*{specialFeatures}"/><br/>
+
+    <!-- Botón para guardar -->
+    <button type="submit">Guardar</button>
+</form>
+</body>
+</html>
